@@ -41,9 +41,10 @@ class Hero extends BaseCharacter{
 
     console.log("召喚英雄 " + this.name + "！");
   }
+  <!--傷害公式不同 所以在不同class中有各自的attack method-->
   attack(character){
     var damage = Math.random()*(this.ap/2)+(this.ap/2);
-    super.attack(character,damage);
+    super.attack(character,Math.floor(damage));
   }
   getHurt(damage){
     super.getHurt(damage);
@@ -67,12 +68,61 @@ class Monster extends BaseCharacter {
   }
   attack(character){
     var damage = Math.random()*(this.ap/2)+(this.ap/2);
-    super.attack(character,damage);
+    super.attack(character,Math.floor(damage));
   }
   getHurt(damage){
     super.getHurt(damage);
     this.updateHtml(this.hpElement, this.hurtElement);
   }
+}
+
+function addSkillEvent(){
+  var skill = document.getElementById("skill");
+  skill.onclick = function(){
+    heroAttack();
+  }
+}
+addSkillEvent();
+
+var rounds = 10;
+function endTurn(){
+  rounds--;
+  document.getElementById("round-num").textContent = rounds;
+  if (rounds < 1) {
+    <!-- game over-->
+  }
+}
+
+function heroAttack(){
+  document.getElementsByClassName("skill-block")[0].style.display="none";
+
+  <!-- hero -->
+  setTimeout(function(){
+    hero.element.classList.add("attacking");
+    setTimeout(function(){
+      hero.attack(monster);
+      hero.element.classList.remove("attacking");
+    },500)
+  },100);
+  <!-- monster -->
+  setTimeout(function(){
+    if(monster.alive){
+      monster.element.classList.add("attacking");
+      setTimeout(function(){
+        monster.attack(hero);
+        monster.element.classList.remove("attacking");
+        endTurn();
+        if(hero.alive == false){
+          <!--game over-->
+        }else{
+          document.getElementsByClassName("skill-block")[0].style.display = "block";
+        }
+      },500);
+    }else{
+      <!-- game over -->
+    }
+  },1100);
+
 }
 
 var hero = new Hero("Bernard", 130, 30);
