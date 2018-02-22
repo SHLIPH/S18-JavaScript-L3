@@ -219,10 +219,15 @@ function finish(){
 
 document.onkeyup = function(event){
   var key = String.fromCharCode(event.keyCode);
+
   if(key == "A"){
-    heroAttack();
+    if(document.getElementsByClassName("skill-block")[0].style.display == "block"){
+      heroAttack();
+    }
   }else if(key=="D"){
-    heroHeal();
+    if(document.getElementsByClassName("skill-block")[0].style.display == "block"){
+      heroHeal();
+    }
   }
 }
 
