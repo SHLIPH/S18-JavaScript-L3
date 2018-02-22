@@ -111,6 +111,7 @@ function endTurn(){
   document.getElementById("round-num").textContent = rounds;
   if (rounds < 1) {
     <!-- game over-->
+    finish();
   }
 }
 
@@ -135,15 +136,27 @@ function heroAttack(){
         endTurn();
         if(hero.alive == false){
           <!--game over-->
+          finish();
         }else{
           document.getElementsByClassName("skill-block")[0].style.display = "block";
         }
       },500);
     }else{
       <!-- game over -->
+      finish();
     }
   },1100);
 
+}
+
+function finish(){
+  var dialog = document.getElementById("dialog");
+  dialog.style.display = "block";
+  if(hero.alive == false){
+    dialog.classList.add("lose");
+  }else{
+    dialog.classList.add("win");
+  }
 }
 
 var hero = new Hero("Bernard", 130, 30);
