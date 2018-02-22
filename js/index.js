@@ -37,7 +37,7 @@ class BaseCharacter {
         _this.element.getElementsByClassName("hurt-text")[0].textContent = "";
         clearInterval(_this.id);
       }
-    },50);
+    },100);
   }
   die(){
     this.alive = false;
@@ -161,7 +161,7 @@ function heroAttack(){
     setTimeout(function(){
       hero.attack(monster);
       hero.element.classList.remove("attacking");
-    },500)
+    },800)
   },100);
   <!-- monster -->
   setTimeout(function(){
@@ -177,12 +177,12 @@ function heroAttack(){
         }else{
           document.getElementsByClassName("skill-block")[0].style.display = "block";
         }
-      },500);
+      },800);
     }else{
       <!-- game over -->
       finish();
     }
-  },1100);
+  },1700);
 
 }
 
